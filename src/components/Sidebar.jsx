@@ -78,7 +78,7 @@ function SidebarContent({ mobile = false, onClose }) {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto no-scrollbar">
-        <div className={`flex flex-col ${mobile ? "pt-0 px-4 space-y-[35px]" : "pt-14 px-2 space-y-[40px]"}`}>
+        <div className={`flex flex-col ${mobile ? "pt-2 px-4 space-y-[35px]" : "pt-16 px-2 space-y-[40px]"}`}>
           {/* Dashboard button */}
           <a
             href="#"

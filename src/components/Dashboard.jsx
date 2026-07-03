@@ -50,9 +50,9 @@ const Dashboard = memo(function Dashboard() {
   };
 
   return (
-    <div className="flex-1 flex flex-col animate-[fadeIn_0.5s_ease-out] overflow-y-auto custom-scrollbar pr-1 pb-4">
+    <div className="flex-1 w-full animate-[fadeIn_0.5s_ease-out] overflow-y-auto custom-scrollbar">
       {/* Welcome Hero */}
-      <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0056D2] via-[#1a7fd4] to-[#33A3DB] p-6 shadow-xl">
+      <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0056D2] via-[#1a7fd4] to-[#33A3DB] p-6 shadow-xl mx-4 mt-4">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
         <div className="relative z-10 flex items-center justify-between">
@@ -77,13 +77,13 @@ const Dashboard = memo(function Dashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-4 mb-6">
         {statCards.map((stat, index) => {
           const Icon = stat.icon;
           return (
             <div
               key={stat.label}
-              className={`bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-[slideInUp_0.5s_ease-out_both] ${animated ? "" : "opacity-0 translate-y-4"}`}
+              className={`bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-[slideInUp_0.5s_ease-out_both] ${animated ? "" : "opacity-0 translate-y-4"}`}
               style={{ animationDelay: `${index * 80}ms` }}
             >
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-3 shadow-sm`}>
@@ -100,7 +100,7 @@ const Dashboard = memo(function Dashboard() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 px-4 mb-6">
         {/* Weekly Progress Chart */}
         <div className="lg:col-span-2 bg-white rounded-xl p-5 shadow-md">
           <div className="flex items-center justify-between mb-5">
@@ -175,7 +175,7 @@ const Dashboard = memo(function Dashboard() {
       </div>
 
       {/* Bottom Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 pb-6">
         {/* XP Progress */}
         <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-5 shadow-md">
           <div className="flex items-center justify-between mb-4">
