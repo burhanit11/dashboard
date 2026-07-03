@@ -51,11 +51,18 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <img
-            src="https://bachecaa.vercel.app/image/logo.png"
-            alt="Logo"
-            className="w-48 mx-auto mb-4"
-          />
+          <a href="/">
+            <img
+              src="https://bachecaa.vercel.app/image/logo.png"
+              alt="Logo"
+              className="w-48 mx-auto mb-4 hover:opacity-80 transition-opacity cursor-pointer"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <div style={{ display: 'none' }} className="text-white text-2xl font-bold mb-4">Perfect Match</div>
+          </a>
           <p className="text-white/80 text-sm">Sign in to your account</p>
         </div>
 

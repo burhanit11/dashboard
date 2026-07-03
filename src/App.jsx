@@ -73,7 +73,7 @@ function App() {
         </div>
 
         {/* Main scrollable content */}
-        <div className="flex-1 overflow-y-auto lg:overflow-hidden flex flex-col px-0 md:px-6 lg:px-10 mt-10 z-10 shadow-sm">
+        <div className="flex-1 overflow-y-auto lg:overflow-hidden flex flex-col px-0 md:px-6 lg:px-10 mt-10 z-10 shadow-sm bg-white">
           {/* Desktop XP Progress */}
           <div className="hidden md:block shrink-0 mb-4">
             <XPProgress />
