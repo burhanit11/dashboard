@@ -79,13 +79,20 @@ function SidebarContent({ mobile = false, onClose }) {
         <a
           href="#"
           onClick={() => setActiveMenu("Dashboard")}
-          className={`block w-full py-4 font-semibold rounded-xl text-center text-[18px] shadow-inner transition-colors no-underline ${
+          className={`flex items-center gap-4 pl-1 font-semibold rounded-lg px-3 py-2 transition-all ${
+            mobile ? "text-[12px]" : "text-[16px]"
+          } no-underline ${
             activeMenu === "Dashboard"
-              ? "bg-[#15242B] text-white"
-              : "bg-[#15242B]/60 text-white/80 hover:bg-[#15242B]"
+              ? "bg-[#15242B] text-white opacity-100"
+              : "text-[#FFFBFB] opacity-90 hover:opacity-100 hover:bg-[#15242B]/50"
           }`}
         >
-          Dashboard
+          <span className="w-6 h-6 flex items-center justify-center shrink-0">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2L2 7V18H7V13H13V18H18V7L10 2Z" fill="white" />
+            </svg>
+          </span>
+          <span>Dashboard</span>
         </a>
       </div>
 
@@ -97,9 +104,13 @@ function SidebarContent({ mobile = false, onClose }) {
               key={item.label}
               href="#"
               onClick={() => setActiveMenu(item.label)}
-              className={`flex items-center gap-4 pl-1 font-semibold ${
+              className={`flex items-center gap-4 pl-1 font-semibold rounded-lg px-3 py-2 transition-all ${
                 mobile ? "text-[12px]" : "text-[16px]"
-              } opacity-90 text-[#FFFBFB] no-underline hover:opacity-100 transition-opacity`}
+              } no-underline ${
+                activeMenu === item.label
+                  ? "bg-[#15242B] text-white opacity-100"
+                  : "text-[#FFFBFB] opacity-90 hover:opacity-100 hover:bg-[#15242B]/50"
+              }`}
             >
               <span className="w-6 h-6 flex items-center justify-center shrink-0">
                 {item.icon}

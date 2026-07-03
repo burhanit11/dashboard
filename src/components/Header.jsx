@@ -1,5 +1,5 @@
 import { memo, useState, useEffect } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaSignOutAlt } from "react-icons/fa";
 import useStore from "../store/useStore";
 import LoadingSpinner from "./LoadingSpinner";
 import MobileTabNav from "./MobileBottomNav";
@@ -8,6 +8,7 @@ const Header = memo(function Header() {
   const user = useStore((s) => s.user);
   const userLoading = useStore((s) => s.userLoading);
   const toggleSidebar = useStore((s) => s.toggleSidebar);
+  const logout = useStore((s) => s.logout);
   const [animatedProgress, setAnimatedProgress] = useState(0);
 
   const currentXP = user?.currentXP ?? 650;
@@ -103,36 +104,36 @@ const Header = memo(function Header() {
       </div>
 
       {/* ===== DESKTOP/TABLET HEADER (md+) ===== */}
-      <div className="hidden md:flex w-full items-center px-6 md:pt-7 md:pb-4 lg:py-4 bg-white shrink-0">
+      <div className="hidden md:flex w-full items-center px-4 md:pt-2 md:pb-2 lg:py-2 bg-white shrink-0">
         <img
           src="https://bachecaa.vercel.app/image/logo.png"
-          className="w-32 md:w-64 lg:w-52 lg:max-w-88 h-14 md:h-24 lg:h-[100px] object-contain shrink-0"
+          className="w-28 md:w-40 lg:w-36 h-10 md:h-14 lg:h-[60px] object-contain shrink-0"
           alt="Logo"
         />
-        <header className="flex flex-1 items-center gap-4 md:gap-10 md:pl-[90px] px-4">
+        <header className="flex flex-1 items-center gap-4 md:gap-6 md:pl-[60px] px-4">
           <div>
             {userLoading ? (
               <LoadingSpinner size="sm" />
             ) : (
               <>
-                <h1 className="text-[20px] md:text-[26px] font-bold text-[#2D3154] leading-tight">
+                <h1 className="text-[16px] md:text-[20px] font-bold text-[#2D3154] leading-tight">
                   Ciao, {user?.name ?? "User"}!
                 </h1>
-                <p className="text-[#A0AEC0] font-normal text-[10px] md:text-[15px]">
+                <p className="text-[#A0AEC0] font-normal text-[9px] md:text-[12px]">
                   Inizia la giornata con un nuovo corso!
                 </p>
               </>
             )}
           </div>
-          <div className="relative hidden lg:flex items-center justify-end h-14 w-60">
-            <div className="absolute right-0 shadow-xl w-[180px] h-12 bg-[#1C58F2] rounded-full" />
-            <div className="absolute left-10 w-[180px] h-10 bg-[#FBBF24] rounded-full gold-glow flex items-center justify-center z-10">
-              <span className="text-[28px] pl-16 font-[900] text-[#1A202C]">
+          <div className="relative hidden lg:flex items-center justify-end h-10 w-48">
+            <div className="absolute right-0 shadow-xl w-[140px] h-9 bg-[#1C58F2] rounded-full" />
+            <div className="absolute left-8 w-[140px] h-8 bg-[#FBBF24] rounded-full gold-glow flex items-center justify-center z-10">
+              <span className="text-[20px] pl-12 font-[900] text-[#1A202C]">
                 {user?.points ?? "—"}
               </span>
               <img
                 src="https://bachecaa.vercel.app/image/headlogo.png"
-                className="pl-5 w-16"
+                className="pl-4 w-12"
                 alt=""
               />
             </div>
@@ -141,8 +142,16 @@ const Header = memo(function Header() {
         <img
           src={user?.avatar ?? "https://bachecaa.vercel.app/image/download.jpg"}
           alt={user?.name ?? "Profile"}
-          className="w-16 lg:w-20 h-16 lg:h-20 rounded-full mr-5 object-cover shrink-0"
+          className="w-10 lg:w-12 h-10 lg:h-12 rounded-full mr-3 object-cover shrink-0"
         />
+        <button
+          onClick={logout}
+          className="flex items-center gap-2 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors mr-3"
+          title="Logout"
+        >
+          <FaSignOutAlt />
+          <span className="hidden lg:inline text-sm font-semibold">Esci</span>
+        </button>
       </div>
     </>
   );

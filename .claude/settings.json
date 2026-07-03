@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(cat /c/Users/Pro-Tech/AppData/Local/Temp/claude/d--Projects-dashboard/96c46214-e300-423a-97ae-836a1b7f188d/tasks/ba2i2f29x.output)",
+      "Read(//c/Users/Pro-Tech/AppData/Local/Temp/claude/d--Projects-dashboard/96c46214-e300-423a-97ae-836a1b7f188d/tasks/**)"
+    ]
+  }
+}

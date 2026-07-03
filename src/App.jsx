@@ -1,26 +1,57 @@
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, Suspense } from "react";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import XPProgress from "./components/XPProgress";
 import LoadingSpinner from "./components/LoadingSpinner";
 import useStore from "./store/useStore";
+import Login from "./pages/Login";
+import Dashboard from "./components/Dashboard";
+import Announcements from "./components/Announcements";
+import Simulatore from "./components/Simulatore";
+import SimulazioniArchiviate from "./components/SimulazioniArchiviate";
+import ErrorNotebook from "./components/ErrorNotebook";
+import SimulazioneUfficiale from "./components/SimulazioneUfficiale";
+import MyStats from "./components/MyStats";
 
-const ProjectList = lazy(() => import("./components/ProjectList"));
-const Leaderboard = lazy(() => import("./components/Leaderboard"));
+// Map sidebar menus to components
+const MENU_COMPONENTS = {
+  "Dashboard": Dashboard,
+  "Bacheca annunci": Announcements,
+  "Simulatore": Simulatore,
+  "Simulazioni archiviate": SimulazioniArchiviate,
+  "Quadernino degli errori": ErrorNotebook,
+  "Simulazione ufficiale": SimulazioneUfficiale,
+  "Le mie statistiche": MyStats,
+};
 
 function App() {
   const fetchUser = useStore((s) => s.fetchUser);
+  const fetchProjects = useStore((s) => s.fetchProjects);
+  const fetchLeaderboard = useStore((s) => s.fetchLeaderboard);
   const sidebarOpen = useStore((s) => s.sidebarOpen);
   const toggleSidebar = useStore((s) => s.toggleSidebar);
-  const activeTab = useStore((s) => s.activeTab);
+  const activeMenu = useStore((s) => s.activeMenu);
+  const isAuthenticated = useStore((s) => s.isAuthenticated);
 
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (isAuthenticated) {
+      fetchUser();
+      fetchProjects();
+      fetchLeaderboard();
+    }
+  }, [isAuthenticated, fetchUser, fetchProjects, fetchLeaderboard]);
+
+  // Show login page if not authenticated
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  // Get the current panel component based on active menu
+  const CurrentPanel = MENU_COMPONENTS[activeMenu];
 
   return (
     <section className="flex flex-col h-screen w-full overflow-hidden bg-white">
-      {/* Mobile sidebar overlay — full screen on top */}
+      {/* Mobile sidebar overlay */}
       <div
         className={`md:hidden fixed inset-0 z-[9999] transition-all duration-300 ease-in-out ${
           sidebarOpen
@@ -31,19 +62,19 @@ function App() {
         <Sidebar mobile onClose={toggleSidebar} />
       </div>
 
-      {/* Header (includes mobile XP overlay) */}
+      {/* Header */}
       <Header />
 
       {/* Content row: sidebar + main */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden min-w-0">
-        {/* Desktop/tablet sidebar */}
+        {/* Desktop sidebar */}
         <div className="hidden md:flex shrink-0">
           <Sidebar />
         </div>
 
         {/* Main scrollable content */}
         <div className="flex-1 overflow-y-auto lg:overflow-hidden flex flex-col px-0 md:px-6 lg:px-10 mt-10 z-10 shadow-sm">
-          {/* Desktop/tablet XP Progress */}
+          {/* Desktop XP Progress */}
           <div className="hidden md:block shrink-0 mb-4">
             <XPProgress />
           </div>
@@ -51,14 +82,7 @@ function App() {
           {/* Content area */}
           <div className="flex-1 flex flex-col lg:flex-row gap-6 lg:gap-10 w-full lg:overflow-hidden pb-0 px-4 md:px-0">
             <Suspense fallback={<LoadingSpinner />}>
-              <div className={`flex-[1.5] flex-col min-w-0 ${activeTab === "corsi" ? "flex" : "hidden"} md:!flex`}>
-                <div className="flex-1 lg:overflow-y-auto lg:pr-10 custom-scrollbar space-y-3">
-                  <ProjectList />
-                </div>
-              </div>
-              <div className={`flex-col ${activeTab === "leaderboard" ? "flex" : "hidden"} md:!flex`}>
-                <Leaderboard />
-              </div>
+              {CurrentPanel && <CurrentPanel />}
             </Suspense>
           </div>
         </div>
